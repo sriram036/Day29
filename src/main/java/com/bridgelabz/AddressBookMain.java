@@ -1,5 +1,6 @@
 package com.bridgelabz;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +17,8 @@ public class AddressBookMain {
             System.out.println("3.Display");
             System.out.println("4.Edit");
             System.out.println("5.Delete");
-            System.out.println("6.Exit");
+            System.out.println("6.Write address book data to csv file");
+            System.out.println("7.Exit");
             System.out.println("Enter your choice:");
             choice = scanner.nextInt();
             switch (choice) {
@@ -78,6 +80,15 @@ public class AddressBookMain {
                     }
                 }break;
                 case 6 : {
+                    try {
+                        addressBook.writeArrayListToCsvFile(addressBooks);
+                        //System.out.println("Json File Written");
+                    }
+                    catch (IOException e) {
+                        System.out.println(e);
+                    }
+                }break;
+                case 7 : {
                     System.out.println("Thank you! See you soon!");
                     System.exit(0);
                 }break;
@@ -86,6 +97,6 @@ public class AddressBookMain {
                 }
             }
         }
-        while (choice != 6);
+        while (choice != 7);
     }
 }
