@@ -1,10 +1,17 @@
 package com.bridgelabz;
 
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class AddressBook {
+
+    static final String filecsv = "/Users/admin/Documents/Java Fellowship Program/Day29/src/main/java/com/bridgelabz/contact.csv";
     ArrayList<Contact> contacts = new ArrayList<>();
     private String addressBookName;
 
@@ -91,6 +98,25 @@ public class AddressBook {
             }
         }
         return isFound;
+    }
+
+    public void writeArrayListToCsvFile(ArrayList<AddressBook> addressBooks) throws IOException {
+        File file = new File(filecsv);
+        try {
+            FileWriter outputFile = new FileWriter(file);
+            CSVWriter writer = new CSVWriter(outputFile);
+            String []header = {"First name", "Last name", "City", "State", "Email"};
+            writer.writeNext(header);
+            for (int i = 0; i < addressBooks.size(); i++) {
+                for (int j = 0; j < contacts.size(); j++) {
+                    String []str = {addressBooks.get(i).contacts.get(j).getFirstName(),addressBooks.get(i).contacts.get(j).getLastName(),addressBooks.get(i).contacts.get(j).getCity(),addressBooks.get(i).contacts.get(j).getState(),addressBooks.get(i).contacts.get(j).getEmail()};
+                    writer.writeNext(str);
+                }
+            }
+            writer.close();
+        }catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     @Override
